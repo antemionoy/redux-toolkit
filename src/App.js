@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from './slices/counterSlice';
+//tasks
+import NewTaskForm from './components/NewTaskForm.js';
+import Tasks from './components/Tasks.js';
 
 function App() {
+  const count = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <div>
+          <button
+              aria-label="Increment value"
+              onClick={() => dispatch(increment())}
+          >
+            Прибавить
+          </button>
+          <span>{count}</span>
+          <button
+              aria-label="Decrement value"
+              onClick={() => dispatch(decrement())}
+          >
+            Отнять
+          </button>
+        </div>
+      </div>
+      <NewTaskForm />
+      <Tasks />
     </div>
   );
 }
